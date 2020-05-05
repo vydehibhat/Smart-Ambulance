@@ -1,0 +1,152 @@
+package dec.eighteen.ksit.ambulance;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+
+public class DatabaseHelper {
+	public static final String KEY_ID = "Id";
+	public static final String KEY_FIRST = "Name";
+	public static final String KEY_SECOND = "Password";
+	public static final String KEY_THIRD = "mailID";
+	public static final String KEY_FOURTH = "PhNumber";
+	public static final String KEY_FIFTH = "Address";
+	public static final String KEY_SIXTH = "Pincode";
+      public static final String KEY_SEVENTH = "vehiclenum";
+  
+
+    public static final String one = "AName";
+    public static final String two = "APassword";
+    public static final String three = "AMailID";
+    public static final String four = "PHNumber";
+    public static final String five = "AAddress";
+    public static final String six = “APincode";
+
+
+	public static final String nine = "comment";
+	private static final String DATABASE_NAME = "REDD";
+
+	private static final String DATABASE_TABLE1 = "UserRegister";
+	private static final String DATABASE_TABLE2 = "AdminRegister";
+
+	private static final int DATABASE_VERSION = 5;
+	private DbHelper dbh;
+	private final Context context;
+	private static SQLiteDatabase ourdatabase;
+	
+	private static final String DATABASE_CREATE1 ="create table "+DATABASE_TABLE1+"("
+			+ KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ KEY_FIRST+" TEXT NOT NULL, "+KEY_SECOND+" TEXT NOT NULL, "
+			+KEY_THIRD+" TEXT NOT NULL, "
+			+KEY_FOURTH+" TEXT NOT NULL, "+KEY_FIFTH+" TEXT NOT NULL, "+KEY_SIXTH+" TEXT NOT NULL,"+KEY_SEVENTH+" TEXT NOT NULL);";
+
+
+
+	private static final String DATABASE_CREATE2 ="create table "+DATABASE_TABLE2+"("
+			+ one+" TEXT NOT NULL,"
+			+ two+" TEXT NOT NULL,"
+			+ three+" TEXT NOT NULL,"
+			+ four+" TEXT NOT NULL,"
+			+ five+" TEXT NOT NULL,"
+            + six+" TEXT NOT NULL);";
+
+
+    public DatabaseHelper(Context c){
+		this.context=c;
+	}
+	private static class DbHelper extends SQLiteOpenHelper {
+
+		public DbHelper(Context context) {
+			super(context, DATABASE_NAME, null,DATABASE_VERSION);
+			// TODO Auto-generated constructor stub
+		}
+		
+
+		@Override
+		public void onCreate(SQLiteDatabase arg0) {
+			// TODO Auto-generated method stub
+			
+			arg0.execSQL(DATABASE_CREATE1);
+			arg0.execSQL(DATABASE_CREATE2);
+			
+		}
+
+		@Override
+		public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+			// TODO Auto-generated method stub
+			arg0.execSQL("DROP TABLE IF EXISTS "+DATABASE_TABLE1);
+			onCreate(arg0);
+		}
+		
+	}
+	
+	public DatabaseHelper open(){
+		dbh=new DbHelper(context);
+		ourdatabase=dbh.getWritableDatabase();
+		return this;
+	}
+	public void close(){
+		dbh.close();
+	}
+	
+	public long UserRegister(String name, String s2, String s3, String s4, String s5, String s6, String s7, String s8) {
+		// TODO Auto-generated method stub
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(KEY_FIRST, name);
+		initialValues.put(KEY_SECOND, s2);
+		initialValues.put(KEY_THIRD, s3);
+		initialValues.put(KEY_FOURTH, s4);
+		initialValues.put(KEY_FIFTH, s5);
+		initialValues.put(KEY_SIXTH, s6);
+        initialValues.put(KEY_SEVENTH, s7);
+
+		return ourdatabase.insert(DATABASE_TABLE1,null,initialValues);
+
+	public long AdminRegister(String name, String s2, String s3, String s4, String s5, String s6) {
+		// TODO Auto-generated method stub
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(one, name);
+		initialValues.put(two, s2);
+		initialValues.put(three, s3);
+		initialValues.put(four, s4);
+		initialValues.put(five, s5);
+		initialValues.put(six, s6);
+		return ourdatabase.insert(DATABASE_TABLE2, null, initialValues);
+}
+
+	public Cursor getAllContacts1()
+	{
+		return ourdatabase.query(DATABASE_TABLE1, new String[] {KEY_FOURTH},null,null, null, null, null, null);
+	}
+
+	public long Confirm(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8) {
+		// TODO Auto-generated method stub
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(k1, s1);
+		initialValues.put(k2, s2);
+		initialValues.put(k3, s3);
+		initialValues.put(k4, s4);
+		initialValues.put(k5, s5);
+		initialValues.put(k6, s6);
+		initialValues.put(k7, s7);
+
+
+		return ourdatabase.insert(DDATABASE_TABE1, null, initialValues);
+	}
+    public long Complaints(String name, String s2, String s3, String s4, String s5, String s6, String s7) {
+        // TODO Auto-generated method stub
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(one, name);
+        initialValues.put(two, s2);
+
+        initialValues.put(three, s3);
+        initialValues.put(four, s4);
+		initialValues.put(five, s5);
+		initialValues.put(six, s6);
+
+        return ourdatabase.insert(DATABASE_TABLE2, null, initialValues);
+    }
