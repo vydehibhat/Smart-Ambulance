@@ -23,7 +23,7 @@ public class DatabaseHelper {
     public static final String two = "APassword";
     public static final String three = "AMailID";
     public static final String four = "PHNumber";
-    public static final String five = "AAddress";
+    public static final String five = "AAddress";//
     public static final String six = “APincode";
 
 
